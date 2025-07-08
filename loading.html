@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading...</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body, html {
+            height: 100%;
+            overflow: hidden;
+            background: #000;
+        }
+        
+        .loading-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #000;
+            opacity: 1;
+            transition: opacity 1s ease-out;
+            z-index: 9999;
+        }
+        
+        .loading-container.fade-out {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .loading-gif {
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="loading-container" id="loadingContainer">
+        <img src="./images/loading.gif" alt="Loading" class="loading-gif" id="loadingGif">
+    </div>
+
+    <script>
+        // Auto redirect after GIF plays
+        setTimeout(() => {
+            const loadingContainer = document.getElementById('loadingContainer');
+            loadingContainer.classList.add('fade-out');
+            
+            setTimeout(() => {
+                window.location.href = 'index.php';
+            }, 1000); // 1 second fade out
+            
+        }, 3000); // 3 seconds to show GIF
+        
+        // Handle GIF loading error
+        document.getElementById('loadingGif').addEventListener('error', function() {
+            // If GIF fails, redirect immediately
+            window.location.href = 'index.php';
+        });
+    </script>
+</body>
+</html>
